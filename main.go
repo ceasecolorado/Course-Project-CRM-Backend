@@ -43,16 +43,14 @@ func getCustomer(w http.ResponseWriter, r *http.Request) {
 			w.WriteHeader(http.StatusOK)
 			json.NewEncoder(w).Encode(customer)
 			return
-		} else {
-			w.WriteHeader(http.StatusNotFound)
-			error := errorResponse{
-				StatusCode: http.StatusNotFound,
-				Message:    "Customer not found",
-			}
-			json.NewEncoder(w).Encode(error)
-			return
 		}
 	}
+	w.WriteHeader(http.StatusNotFound)
+	error := errorResponse{
+		StatusCode: http.StatusNotFound,
+		Message:    "Customer not found",
+	}
+	json.NewEncoder(w).Encode(error)
 }
 
 func addCustomer(w http.ResponseWriter, r *http.Request) {
@@ -105,8 +103,9 @@ func main() {
 
 	// Define the routes
 	router.HandleFunc(customerUri, getCustomers).Methods("GET")
-	router.HandleFunc(customerUri, addCustomer).Methods("POST")
 	router.HandleFunc(customerIdUri, getCustomer).Methods("GET")
+
+	router.HandleFunc(customerUri, addCustomer).Methods("POST")
 	router.HandleFunc(customerIdUri, deleteCustomer).Methods("DELETE")
 	router.HandleFunc(customerIdUri, updateCustomer).Methods("PUT")
 
