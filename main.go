@@ -37,6 +37,8 @@ var customerNotFound = errorResponse{
 
 var customers = []Customer{}
 
+// Function to handle all requests
+
 func getCustomers(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set(contentType, contentTypeJSON)
 	w.WriteHeader(http.StatusOK)
@@ -100,6 +102,7 @@ func updateCustomer(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNotFound)
 	json.NewEncoder(w).Encode(customerNotFound)
 }
+
 func deleteCustomer(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set(contentType, contentTypeJSON)
 	id := mux.Vars(r)["id"]
@@ -154,11 +157,12 @@ func main() {
 	// Define the routes
 	router.HandleFunc(customerUri, getCustomers).Methods("GET")
 	router.HandleFunc(customerIdUri, getCustomer).Methods("GET")
-
 	router.HandleFunc(customerUri, addCustomer).Methods("POST")
 	router.HandleFunc(customerIdUri, deleteCustomer).Methods("DELETE")
 	router.HandleFunc(customerIdUri, updateCustomer).Methods("PUT")
 	router.PathPrefix("/").Handler(http.FileServer(http.Dir("./static/")))
+
+	// Start the server
 	fmt.Println("Server is starting on port 3000...")
 	log.Fatal(http.ListenAndServe(":3000", router))
 }
