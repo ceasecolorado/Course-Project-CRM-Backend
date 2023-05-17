@@ -5,7 +5,10 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"math/rand"
 	"net/http"
+	"strings"
+	"time"
 
 	// other imports
 	"github.com/gorilla/mux"
@@ -16,6 +19,18 @@ import (
 var contentType string = "Content-Type"
 var contentTypeJSON string = "application/json"
 
+// define const for random string generation
+const letterBytes = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+const (
+	letterIdxBits = 6                    // 6 bits to represent a letter index
+	letterIdxMask = 1<<letterIdxBits - 1 // All 1-bits, as many as letterIdxBits
+	letterIdxMax  = 63 / letterIdxBits   // # of letter indices fitting in 63 bits
+)
+
+var src = rand.NewSource(time.Now().UnixNano())
+
+// define the Customer and error structs
 type Customer struct {
 	ID        string `json:"id"`
 	Name      string `json:"name"`
@@ -37,8 +52,28 @@ var customerNotFound = errorResponse{
 
 var customers = []Customer{}
 
-// Function to handle all requests
+// Function to generate a random string
+func generateRandomStringID(n int) string {
+	// https://stackoverflow.com/questions/22892120/how-to-generate-a-random-string-of-a-fixed-length-in-go
+	sb := strings.Builder{}
+	sb.Grow(n)
+	// A src.Int63() generates 63 random bits, enough for letterIdxMax characters!
+	for i, cache, remain := n-1, src.Int63(), letterIdxMax; i >= 0; {
+		if remain == 0 {
+			cache, remain = src.Int63(), letterIdxMax
+		}
+		if idx := int(cache & letterIdxMask); idx < len(letterBytes) {
+			sb.WriteByte(letterBytes[idx])
+			i--
+		}
+		cache >>= letterIdxBits
+		remain--
+	}
 
+	return sb.String()
+}
+
+// Functions to handle all requests
 func getCustomers(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set(contentType, contentTypeJSON)
 	w.WriteHeader(http.StatusOK)
@@ -67,18 +102,9 @@ func addCustomer(w http.ResponseWriter, r *http.Request) {
 	reqBody, _ := ioutil.ReadAll(r.Body)
 	json.Unmarshal(reqBody, &newCustomer)
 
-	for _, customer := range customers {
-		if customer.ID == newCustomer.ID {
-			w.WriteHeader(http.StatusConflict)
-			error := errorResponse{
-				StatusCode: http.StatusConflict,
-				Message:    "Customer already exists",
-			}
-			json.NewEncoder(w).Encode(error)
-			return
-		}
-	}
+	newCustomer.ID = generateRandomStringID(10)
 	customers = append(customers, newCustomer)
+
 	w.WriteHeader(http.StatusCreated)
 	json.NewEncoder(w).Encode(newCustomer)
 }

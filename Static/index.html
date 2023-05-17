@@ -692,10 +692,6 @@
             defs["customers_body"] = {
   "type" : "object",
   "properties" : {
-    "id" : {
-      "type" : "string",
-      "example" : "4"
-    },
     "Name" : {
       "type" : "string",
       "example" : "Cesar Colorado"
@@ -781,7 +777,7 @@
   "properties" : {
     "id" : {
       "type" : "string",
-      "example" : "4"
+      "example" : "FGMwWhkGMK"
     },
     "name" : {
       "type" : "string",
@@ -873,19 +869,6 @@
     "message" : {
       "type" : "string",
       "example" : "Customer not found"
-    }
-  }
-};
-            defs["inline_response_409"] = {
-  "type" : "object",
-  "properties" : {
-    "code" : {
-      "type" : "number",
-      "example" : 409
-    },
-    "message" : {
-      "type" : "string",
-      "example" : "Customer already exists"
     }
   }
 };
@@ -994,7 +977,6 @@ public class DefaultApiExample {
         
         DefaultApi apiInstance = new DefaultApi();
         Customers_body body = {
-  "id" : "4",
   "Name" : "Cesar Colorado",
   "Role" : "Software Engineer",
   "Email" : "cesar@mail.com",
@@ -1020,7 +1002,6 @@ public class DefaultApiExample {
     public static void main(String[] args) {
         DefaultApi apiInstance = new DefaultApi();
         Customers_body body = {
-  "id" : "4",
   "Name" : "Cesar Colorado",
   "Role" : "Software Engineer",
   "Email" : "cesar@mail.com",
@@ -1043,7 +1024,6 @@ public class DefaultApiExample {
   </div> -->
                             <div class="tab-pane" id="examples-Default-addCustomer-0-objc">
                               <pre class="prettyprint"><code class="language-cpp">Customers_body *body = {
-  "id" : "4",
   "Name" : "Cesar Colorado",
   "Role" : "Software Engineer",
   "Email" : "cesar@mail.com",
@@ -1072,7 +1052,6 @@ DefaultApi *apiInstance = [[DefaultApi alloc] init];
 var api = new CrmBackendProject.DefaultApi()
 var opts = { 
   'body': {
-  "id" : "4",
   "Name" : "Cesar Colorado",
   "Role" : "Software Engineer",
   "Email" : "cesar@mail.com",
@@ -1133,7 +1112,6 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 $api_instance = new Swagger\Client\ApiDefaultApi();
 $body = {
-  "id" : "4",
   "Name" : "Cesar Colorado",
   "Role" : "Software Engineer",
   "Email" : "cesar@mail.com",
@@ -1177,7 +1155,6 @@ from pprint import pprint
 # create an instance of the API class
 api_instance = swagger_client.DefaultApi()
 body = {
-  "id" : "4",
   "Name" : "Cesar Colorado",
   "Role" : "Software Engineer",
   "Email" : "cesar@mail.com",
@@ -1217,7 +1194,6 @@ except ApiException as e:
         "$ref" : "#/components/schemas/customers_body"
       },
       "example" : {
-        "id" : "4",
         "Name" : "Cesar Colorado",
         "Role" : "Software Engineer",
         "Email" : "cesar@mail.com",
@@ -1294,7 +1270,7 @@ except ApiException as e:
       "schema" : {
         "type" : "array",
         "example" : [ {
-          "id" : "4",
+          "id" : "FGMwWhkGMK",
           "name" : "Cease Colorado",
           "role" : "Software Engineer",
           "email" : "cesar@mail.com",
@@ -1309,7 +1285,7 @@ except ApiException as e:
       "examples" : {
         "Add a customer" : {
           "value" : [ {
-            "id" : "4",
+            "id" : "FGMwWhkGMK",
             "name" : "Cease Colorado",
             "role" : "Software Engineer",
             "email" : "cesar@mail.com",
@@ -1344,105 +1320,6 @@ except ApiException as e:
                                   <input id='responses-addCustomer-200-schema-data' type='hidden' value=''></input>
                                 </div>
                                 <div class="tab-pane" id="responses-addCustomer-200-headers">
-                                    <table>
-                                        <tr>
-                                            <th width="150px">Name</th>
-                                            <th width="100px">Type</th>
-                                            <th width="100px">Format</th>
-                                            <th>Description</th>
-                                        </tr>
-                                        <tr>
-                                            <td>Content-Length</td>
-                                            <td>String</td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Date</td>
-                                            <td>String</td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-
-                            <h3> Status: 409 - Customer already exists </h3>
-
-                            <ul class="nav nav-tabs nav-tabs-examples" >
-                                <li class="active">
-                                  <a data-toggle="tab" href="#responses-addCustomer-409-schema">Schema</a>
-                                </li>
-
-                                <li class="">
-                                  <a data-toggle="tab" href="#responses-addCustomer-409-headers">Headers</a>
-                                </li>
-                            </ul>
-
-                            <div class="tab-content" style='margin-bottom: 10px;'>
-                                <div class="tab-pane active" id="responses-addCustomer-409-schema">
-                                  <div id='responses-addCustomer-409-schema-409' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
-                                    <script>
-                                      $(document).ready(function() {
-                                        var schemaWrapper = {
-  "description" : "Customer already exists",
-  "headers" : {
-    "Content-Length" : {
-      "style" : "simple",
-      "explode" : false,
-      "schema" : {
-        "type" : "string",
-        "example" : "4"
-      }
-    },
-    "Date" : {
-      "style" : "simple",
-      "explode" : false,
-      "schema" : {
-        "type" : "string",
-        "example" : "Sun, 14 May 2023 18:22:43 GMT"
-      }
-    }
-  },
-  "content" : {
-    "application/json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/inline_response_409"
-      },
-      "examples" : {
-        "Update customer Copy" : {
-          "value" : {
-            "code" : 409,
-            "message" : "Customer already exists"
-          }
-        }
-      }
-    }
-  }
-};
-                                        var schema = schemaWrapper.content["application/json"].schema;
-                                        if (schema.$ref != null) {
-                                          schema = defsParser.$refs.get(schema.$ref);
-                                        } else {
-                                          schemaWrapper.components = {};
-                                          schemaWrapper.components.schemas = Object.assign({}, defs);
-                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
-                                            console.log(err);
-                                          });
-                                        }
-
-                                        //console.log(JSON.stringify(schema));
-                                        var view = new JSONSchemaView(schema, 3);
-                                        $('#responses-addCustomer-409-schema-data').val(stringify(schema));
-                                        var result = $('#responses-addCustomer-409-schema-409');
-                                        result.empty();
-                                        result.append(view.render());
-                                      });
-                                    </script>
-                                  </div>
-                                  <input id='responses-addCustomer-409-schema-data' type='hidden' value=''></input>
-                                </div>
-                                <div class="tab-pane" id="responses-addCustomer-409-headers">
                                     <table>
                                         <tr>
                                             <th width="150px">Name</th>
